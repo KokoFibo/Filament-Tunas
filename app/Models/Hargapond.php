@@ -10,4 +10,9 @@ class Hargapond extends Model
     use HasFactory;
     protected $table = 'hargapond';
     protected $guarded = [];
+
+    public function notapond()
+    {
+        $this->hasMany(Notapond::class);
+    }
 }

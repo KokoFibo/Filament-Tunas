@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
-use App\Models\Customer;
+use App\Models\Notapond;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
@@ -13,13 +13,13 @@ use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\CustomerResource\Pages;
+use App\Filament\Resources\NotapondResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\CustomerResource\RelationManagers;
+use App\Filament\Resources\NotapondResource\RelationManagers;
 
-class CustomerResource extends Resource
+class NotapondResource extends Resource
 {
-    protected static ?string $model = Customer::class;
+    protected static ?string $model = Notapond::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
@@ -27,19 +27,19 @@ class CustomerResource extends Resource
     {
         return $form
             ->schema([
-
                 Card::make()
                     ->schema([
 
-                        Select::make('title_id')
-                            ->relationship('title', 'title_name'),
+                        TextInput::make('no_pond'),
+                        Select::make('customer_id')
+                            ->relationship('customer', 'name'),
+                        TextInput::make('nama_barang_pond'),
+                        TextInput::make('quantity_pond'),
+                        Select::make('hargapond_id')
+                            ->relationship('hargapond', 'label_harga')
 
-                        TextInput::make('name'),
-                        TextInput::make('address'),
-                        TextInput::make('city'),
-                        TextInput::make('phone'),
-                        TextInput::make('mobile'),
-                        TextInput::make('email')
+
+
 
 
                     ])
@@ -50,13 +50,11 @@ class CustomerResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title.title_name'),
-                TextColumn::make('name'),
-                TextColumn::make('address'),
-                TextColumn::make('city'),
-                TextColumn::make('phone'),
-                TextColumn::make('mobile'),
-                TextColumn::make('email'),
+                TextColumn::make('no_pond'),
+                TextColumn::make('customer.name'),
+                TextColumn::make('nama_barang_pond'),
+                TextColumn::make('quantity_pond'),
+                TextColumn::make('hargapond.harga_pond'),
             ])
             ->filters([
                 //
@@ -79,9 +77,9 @@ class CustomerResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCustomers::route('/'),
-            'create' => Pages\CreateCustomer::route('/create'),
-            'edit' => Pages\EditCustomer::route('/{record}/edit'),
+            'index' => Pages\ListNotaponds::route('/'),
+            'create' => Pages\CreateNotapond::route('/create'),
+            'edit' => Pages\EditNotapond::route('/{record}/edit'),
         ];
     }
 }
