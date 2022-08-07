@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('notapond', function (Blueprint $table) {
+        Schema::create('notaponditem', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->string('no_pond');
-            $table->foreignId('customer_id');
-            $table->date('tanggal');
+            $table->foreignId('notapond_id');
+            $table->foreignId('hargapond_id');
+            $table->string('nama_barang');
+            $table->integer('quantity');
+
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notapond');
+        Schema::dropIfExists('notaponditem');
     }
 };

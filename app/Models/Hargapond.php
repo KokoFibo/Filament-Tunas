@@ -11,8 +11,12 @@ class Hargapond extends Model
     protected $table = 'hargapond';
     protected $guarded = [];
 
+    public function notaponditem()
+    {
+        $this->hasMany(Notaponditem::class);
+    }
     public function notapond()
     {
-        $this->hasMany(Notapond::class);
+        return $this->hasMany(Notapond::class);
     }
 }

@@ -16,6 +16,6 @@ class Customer extends Model
     }
     public function notapond()
     {
-        $this->hasMany(Notapond::class);
+        return $this->hasMany(Notapond::class);
     }
 }

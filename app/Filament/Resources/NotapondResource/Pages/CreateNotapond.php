@@ -9,4 +9,11 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateNotapond extends CreateRecord
 {
     protected static string $resource = NotapondResource::class;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['user_id'] = auth()->id();
+
+        return $data;
+    }
 }
